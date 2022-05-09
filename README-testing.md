@@ -1,0 +1,13 @@
+# Testing infrastructure
+
+As I said at the end of the lecture, the test "framework" I used was a quick shell script put together to show the principle of how CI based testing would work.  While it works, a better approach would be to use some of the testing frameworks available for the language of your choice as they will be much more flexible and robust than some scripts made by yourself.
+
+
+The way the scripts work is that the `test.sh` shell script runs the program, using input from the `test.input` file instead of the keyboard (via shell input redirection) and saves the screen output to `test.real` (again via redirection).  The script then uses the `diff` command to calculate the differences between the contents of the `test.real` file and another file `test.expected` that we have written ourselves to be the correct output of the program. If `diff` finds no difference between the two files then the output was expected and the test passes.  If there is a difference then it means the test has failed and the script shows this by printing a message, the differences between the two files (to help debugging), and exits the script with an error code.  This output will show in the CI dashboard if the test fails.
+
+
+The easy way to make the `test.expected` file is to run the program in the terminal as normal, typing in the input that you want in your test, and then copy & paste the output from the terminal into the file.  Importantly, then you need to delete all the text from that file that you typed in (ie, the text typed in at any prompts).  That text should be put in the `test.input` file instead.  This is why this script approach is not brilliant - you have to separate your input and output manually to create you "known good" expected input and output files.  You can run `./test.sh` locally to test your test works before committing it to the repo.
+
+
+In a real CI system you will also want to do more than one test.  Proper test frameworks make this trivial.  In this shell script, you would have to edit it to have `test1.input`, `test2.input`, etc files, and update the `test.sh` script to run the three sections of the script for each test.  This quickly becomes a pain in the neck, hence why using a proper testing framework is preferred.  The main reason for not using such a framework in this demonstration was to avoid introducing another framework where you spend more time understanding the details of it rather than the CI process as a whole.  As the slides say, I'd encourage you to experiment with CI and testing frameworks before year two to prepare for group projects.
+
