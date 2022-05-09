@@ -11,7 +11,7 @@ int main()
 
    printf("Reversed is: ");
    int len = strlen(buf);
-   for(int i = len - 2; i >= 0; i--)
+   for(int i = len - 1; i >= 0; i--)
    {
       printf("%c", buf[i]);
    }
