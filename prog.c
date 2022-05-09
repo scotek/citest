@@ -16,5 +16,4 @@ int main()
       printf("%c", buf[i]);
    }
    printf("\n");
-   print("That worked well...ahh dinner time...
 }
